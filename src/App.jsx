@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./index.css";
 import APIkey from "./apiKey";
 import axios from "axios";
 import {
@@ -17,7 +18,7 @@ import {
   BsThermometer,
   BsWind,
 } from "react-icons/bs";
-import { TbTemperatureCelsius } from "react-icons/tb";
+import { TbTemperatureCelsius, TbTemperatureFahrenheit } from "react-icons/tb";
 import { ImSpinner8 } from "react-icons/im";
 
 function App() {
@@ -25,7 +26,7 @@ function App() {
   const [location, setLocation] = useState("Atlanta");
 
   useEffect(() => {
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${APIkey}`;
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=imperial&appid=${APIkey}`;
 
     axios.get(url).then((res) => {
       setData(res.data);
@@ -74,7 +75,39 @@ function App() {
       break;
   }
 
-  return <div className="text-6xl">{icon}</div>;
+  const date = new Date();
+
+  return (
+    <div className="w-full h-screen bg-gradient-to-r from-blue-400 to-green-400 bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center px-4 lg:px-0">
+      <form>form</form>
+      <div className="w-full max-w-[450px] bg-black/20 min-h-[584px] text-white backdrop-blur-[32px] rounded-[32px] py-12 px-6">
+        <div>
+          <div className=" bg-gray-100/30 flex items-center gap-x-5">
+            <div className="text-[87px]">{icon}</div>
+            <div>
+              <div className="text-2xl font-semibold">
+                {data.name}, {data.sys.country}
+              </div>
+              <div>
+                {date.getUTCMonth()}/{date.getUTCDate()}/{date.getUTCFullYear()}
+              </div>
+            </div>
+          </div>
+          <div className="my-20">
+            <div className="flex justify-center items-center">
+              <div className="text-[144px] leading-none font-light">
+                {parseInt(data.main.temp)}
+              </div>
+              <div className="text-4xl">
+                <TbTemperatureFahrenheit />
+              </div>
+            </div>
+          </div>
+          <div>bottom</div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default App;
