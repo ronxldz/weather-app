@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import APIkey from "./apiKey";
 import axios from "axios";
 import {
   IoMdSunny,
@@ -18,9 +19,6 @@ import {
 } from "react-icons/bs";
 import { TbTemperatureCelsius } from "react-icons/tb";
 import { ImSpinner8 } from "react-icons/im";
-
-// api key
-const APIkey = "cf50950b8b03edd46e6d606fc07a4ed5";
 
 function App() {
   const [data, setData] = useState(null);
